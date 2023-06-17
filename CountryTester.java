@@ -22,7 +22,7 @@ public class CountryTester {
         // 1
         // getNumOfResidents
         // Calculate and print total number of residents in the country
-        int residents = country.getNumOfResidents();
+        long residents = country.getNumOfResidents();
         System.out.println("getNumOfResidents:");
         if (residents == 10000) {
             System.out.println("PASS: " + residents + " (Expected: 10000)");
@@ -107,10 +107,10 @@ public class CountryTester {
         int maxDiff = country.establishMaxDiff();
         System.out.println("Maximum difference in establishment dates:");
         if (maxDiff == 1189) {
-            System.out.println("PASS: " + maxDiff + " (Expected: 4)");
+            System.out.println("PASS: " + maxDiff + " (Expected: 1189)");
             test7 = true;
         } else {
-            System.out.println("FAIL: " + maxDiff + " (Expected: 4)");
+            System.out.println("FAIL: " + maxDiff + " (Expected: 1189)");
             test7 = false;
         }
         System.out.println();

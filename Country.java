@@ -91,9 +91,9 @@ public class Country {
      * 
      * @return true if the city was removed successfully, false otherwise.
      */
-    public int getNumOfResidents() {
+    public long getNumOfResidents() {
         CityNode runner = _head;
-        int numOfResidents = 0;
+        long numOfResidents = 0;
 
         while (runner != null) {
             numOfResidents += runner.getCity().getNumOfResidents();
@@ -245,28 +245,25 @@ public class Country {
      * @return the city with the most residents in the country.
      */
     public City unifyCities(String cityName1, String cityName2) {
-
         // Get the cities to unify.
         City city1 = getCityByName(cityName1);
         City city2 = getCityByName(cityName2);
-
-        // Initialize nodes for the loop.
-        CityNode nodeToUpdate;
-        CityNode nodeToDelete;
 
         // Prepare the data for the new city.
         String unifiedCityName = cityName1 + "-" + cityName2;
         long unifiedCityNumOfRes = city1.getNumOfResidents() + city2.getNumOfResidents();
         int unifiedCityNumOfNeighs = city1.getNumOfNeighborhoods() + city2.getNumOfNeighborhoods();
-
         Point unifiedCityCenterPoint = city1.getCityCenter().middle(city2.getCityCenter());
         Point unifiedCityCentralStationPoint;
-
         Date unifiedCityEstablishedDate;
+
+        // Declare nodes.
+        CityNode nodeToUpdate;
+        CityNode nodeToDelete;
 
         // set the unified city's established date, and the node to update
         // as the older city date established.
-        // set the node to delete as the newer city date established.
+        // set the node to delete as the newer city by date established.
         if (city1.getDateEstablished().before(city2.getDateEstablished())) {
             unifiedCityEstablishedDate = city1.getDateEstablished();
             nodeToUpdate = getCityNodeByName(cityName1);
@@ -293,6 +290,7 @@ public class Country {
         cityToUpdate.setCityCenter(unifiedCityCenterPoint);
         cityToUpdate.setCentralStation(unifiedCityCentralStationPoint);
 
+        // Set the node to update's city as the unified city.
         nodeToUpdate.setCity(cityToUpdate);
 
         // Set the city to delete's next node as the city to update's next node.
@@ -304,8 +302,6 @@ public class Country {
         while (runner != null) {
             runnerCityName = runner.getCity().getCityName();
             if (runnerCityName.equals(nodeToDeleteCityName)) {
-                System.out.println(runnerCityName);
-                System.out.println("prev: " + prev.getCity().getCityName());
                 prev = nodeToUpdate;
                 prev.setNext(runner.getNext());
                 break;
